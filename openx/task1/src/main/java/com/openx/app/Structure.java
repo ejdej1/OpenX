@@ -1,50 +1,9 @@
 package com.openx.app;
-import java.util.Random;
 
 public class Structure {
 
-    /*
-        Structure ("Unsorted binary tree") is similar to binary tree.
-        The main difference is that nodes with smaller keys than parent nodes can be both on the left and right side
-     */
-
     Node root;
     int leafs = 0;
-
-    private Node addNode (Node current, int value, int side){
-
-        if (current == null){
-            return new Node(value);
-        }
-        if (side == 0){
-            current.left = addNode(current.left, value, side);
-        }
-        else if (side == 1){
-            current.right = addNode(current.right, value, side);
-        }
-        else {
-            System.out.println("Can't add node (number)");
-        }
-        return current;
-    }
-
-    public void add (int value, String side) {
-        switch (side) {
-            case "random":
-                Random random = new Random();
-                root = addNode(root, value, random.nextInt(2));
-                break;
-            case "left":
-                root = addNode(root, value, 0);
-                break;
-            case "right":
-                root = addNode(root, value, 1);
-                break;
-            default:
-                System.out.println("Can't add node (Wrong String)");
-                break;
-        }
-    }
 
     public static void traversePreOrder(Node node) {
         if (node != null) {
@@ -85,5 +44,23 @@ public class Structure {
         }
     }
 
+    public static boolean isEqual(Node node1, Node node2){
+
+        if (node1 == null && node2 == null){
+            return true;
+        }
+
+        if (node1 == null || node2 == null){
+            return false;
+        }
+
+        if (node1.value != node2.value){
+            return false;
+        }
+        boolean leftEqual = isEqual(node1.left, node2.left);
+        boolean rightEqual = isEqual(node1.right, node2.right);
+
+        return leftEqual && rightEqual;
+    }
 
 }

@@ -11,23 +11,23 @@ public class AppTest
 {
 
     Structure testingTree = new Structure();
+    Structure testingTree2 = new Structure();
+    Structure testingTree3 = new Structure();
 
     @Test
     public void addingNodeTest() {
-        testingTree.add(3,"random");
-        testingTree.add(1,"left");
-        testingTree.add(2,"right");
+        testingTree = App.createTree1();
 
-        assertEquals(3, testingTree.root.value);
-        assertEquals(1, testingTree.root.left.value);
-        assertEquals(2,testingTree.root.right.value);
-
-        String expectedOutput = "Can't add node (Wrong String)";
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-        testingTree.add(10,"wrongString");
-        String actualOutput = outputStream.toString().trim();
-        assertEquals(expectedOutput, actualOutput);
+        assertEquals(5, testingTree.root.value);
+        assertEquals(2, testingTree.root.left.value);
+        assertEquals(2,testingTree.root.left.left.value);
+        assertEquals(5,testingTree.root.left.right.value);
+        assertEquals(7,testingTree.root.right.value);
+        assertEquals(1,testingTree.root.right.left.value);
+        assertEquals(0,testingTree.root.right.right.value);
+        assertEquals(2,testingTree.root.right.right.left.value);
+        assertEquals(8,testingTree.root.right.right.right.value);
+        assertEquals(5,testingTree.root.right.right.right.right.value);
     }
 
     @Test
@@ -51,18 +51,18 @@ public class AppTest
 
     @Test
     public void hasChildrenTest(){
-        testingTree.add(3, "random");
+        testingTree.root = new Node(1);
         assertFalse(testingTree.root.checkChildren());
-        testingTree.add(1,"random");
+        testingTree.root.left = new Node(4);
         assertTrue(testingTree.root.checkChildren());
     }
 
     @Test
     public void countingLeafsTest(){
-        testingTree.add(3,"random");
-        testingTree.add(1,"left");
-        testingTree.add(2,"right");
-        testingTree.add(10, "right");
+        testingTree.root = new Node(1);
+        testingTree.root.left = new Node(2);
+        testingTree.root.right = new Node(3);
+        testingTree.root.right.left = new Node(4);
         testingTree.CalculateNumberLeafs(testingTree.root);
 
         assertEquals(2, testingTree.getLeafs() );
@@ -70,10 +70,19 @@ public class AppTest
 
     @Test
     public void CalculateRootToLeaf(){
-        testingTree.add(3,"random");
-        testingTree.add(1,"left");
-        testingTree.add(2,"right");
-        testingTree.add(10, "right");
-        assertEquals(3,testingTree.calculateRootToLeaf(testingTree.root));
+        testingTree = App.createTree1();
+        assertEquals(5,testingTree.calculateRootToLeaf(testingTree.root));
+    }
+
+    @Test
+    public void isEqualTest(){
+        testingTree = App.createTree1();
+        testingTree2 = App.createTree2();
+        testingTree3 = App.createTree3();
+
+        assertTrue(Structure.isEqual(testingTree.root, testingTree.root));
+        assertFalse(Structure.isEqual(testingTree.root, testingTree2.root));
+        assertFalse(Structure.isEqual(testingTree.root,testingTree3.root));
+
     }
 }
