@@ -79,7 +79,7 @@ public class App
         System.out.println("");
         System.out.println("_____Task3_____");
         System.out.println("Is tree1 equal to tree1Copy? " + Structure.isEqual(tree1.root, tree1copy.root));
-        System.out.println("Is tree1 equal to tree2" + Structure.isEqual(tree1.root, tree2.root));
-        System.out.println("Is tree1 equal to tree3" + Structure.isEqual(tree1.root, tree3.root));
+        System.out.println("Is tree1 equal to tree2? " + Structure.isEqual(tree1.root, tree2.root));
+        System.out.println("Is tree1 equal to tree3? " + Structure.isEqual(tree1.root, tree3.root));
     }
 }
